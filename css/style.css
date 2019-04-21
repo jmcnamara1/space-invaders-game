@@ -1,0 +1,66 @@
+@font-face {
+  font-family: "classic-arcade";
+  src: url("../fonts/ARCADE_N.TTF") format("truetype");
+}
+body {
+  font-family: "classic-arcade";
+  box-sizing: border-box;
+}
+.screen {
+  background-color: black;
+  height: 660px;
+  margin: auto;
+  padding: 20px 0px;
+  position: relative;
+  width: 1000px;
+}
+.score {
+  /* background-color: blue; */
+  color: white;
+  height: 50px;
+  padding: 8px 0 0 20px;
+  position: absolute;
+  width: 200px;
+}
+.score-value {
+  color: #57b900;
+  float: right;
+}
+.lives {
+  /* background-color: yellow; */
+  height: 50px;
+  position: absolute;
+  right: 0;
+  width: 240px;
+}
+.aliens {
+  background-color: #57b900;
+  height: 200px;
+  left: 175px;
+  position: absolute;
+  top: 100px;
+  width: 650px;
+}
+.ship {
+  /* background-color: purple; */
+  bottom: 20px;
+  height: 45px;
+  left: 470px;
+  position: absolute;
+  width: 60px;
+}
+.ship-image {
+  width: 60px;
+}
+.ship-life {
+  width: 40px;
+}
+.life-text {
+  color: white;
+  float: left;
+  padding: 10px 0 0 0;
+}
+.life-image {
+  float: left;
+  font-family: sans-serif;
+}
