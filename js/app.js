@@ -1,7 +1,12 @@
 $(function(){
+  var gameInterval;
   var gamerunning = false;
   // Target container
   var container = $(".container");
+  // container coordinates
+  var containerLeft = container.offset().left;
+  var containerRight = containerLeft + container.width();
+
   // Target ship
   var ship = $(".ship");
   // Initial ship postion
@@ -9,24 +14,59 @@ $(function(){
   ship.css({
     'left': shipx
   })
+
+// ===== Alien stuff =========
   // Target aliens
   var aliens = $(".aliens");
   // Initial alien position
-  var aliensx = 170;
+  var aliensx = 100;
   var aliensy = 100;
   aliens.css({
     'left': aliensx,
     'top': aliensy
   })
+  // Initial direction of alien block movement
+  var dirx = "+";
 
 $(".start-button").click(function(){
+  if (!gamerunning){
+    gameInterval = setInterval(function(){
+// ========== coordinates of alienblock ==========
 
+      var aliensLeft = aliens.offset().left;
+      var aliensRight = aliensLeft + aliens.width();
+      var aliensBottom = aliens.offset().top + aliens.height();
+
+      console.log("dog");
+
+  // Changes postion of the alien block
+      if (dirx === "+") {
+        aliensx+=1;
+      }else if (dirx === "-") {
+        aliensx-=1;
+      }
+      aliens.css({
+        'left': aliensx,
+        'top': aliensy
+      })
+  // Changes direction and drops it down a level
+      if (aliensRight>=containerRight) {
+        aliensy += 20;
+        dirx = "-";
+      } else if (aliensLeft<=containerLeft) {
+        aliensy += 20;
+        dirx = "+";
+      }
+
+    },10);
+
+
+    gamerunning = true;
+  } else {
+    gamerunning = false;
+  }
 
 })
-
-
-var containerLeft = container.offset().left;
-var containerRight = containerLeft + container.width();
 
 // ============== Control of ship ============================
 $("body").keydown(function(){
