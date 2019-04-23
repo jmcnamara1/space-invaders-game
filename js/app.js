@@ -27,7 +27,7 @@ $(function(){
   })
   // Initial direction of alien block movement
   var dirx = "+";
-
+// ============= Alien movement from clicking start ==============
 $(".start-button").click(function(){
   if (!gamerunning){
     gameInterval = setInterval(function(){
@@ -58,14 +58,14 @@ $(".start-button").click(function(){
         dirx = "+";
       }
 
-    },10);
+    },50);
 
 
     gamerunning = true;
   } else {
     gamerunning = false;
+    clearInterval(gameInterval)
   }
-
 })
 
 // ============== Control of ship ============================
