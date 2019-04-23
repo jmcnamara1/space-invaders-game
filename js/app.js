@@ -34,18 +34,33 @@ $(function(){
   $(".start-button").click(function(){
     if (!gamerunning){
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row1 alien2" src="images/alien2.png">`)
+        aliens.append(`<img class="row1 alien2 enemy" src="images/alien2.png">`)
       }
+      $(".row1").each(function(index){
+        $(this).css({"left":index*65})
+      })
+
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row2 alien1" src="images/alien1.png">`)
+        aliens.append(`<img class="row2 alien1 enemy" src="images/alien1.png">`)
       }
+      $(".row2").each(function(index){
+        $(this).css({"left":index*65, "top":65})
+      })
+
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row3 alien2" src="images/alien2.png">`)
+        aliens.append(`<img class="row3 alien2 enemy" src="images/alien2.png">`)
       }
+      $(".row3").each(function(index){
+        $(this).css({"left":index*65, "top":130})
+      })
+
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row4 alien1" src="images/alien1.png">`)
-        
+        aliens.append(`<img class="row4 alien1 enemy" src="images/alien1.png">`)
       }
+      $(".row4").each(function(index){
+        $(this).css({"left":index*65, "top":195})
+      })
+
       gameInterval = setInterval(function(){
   // ========== coordinates of alienblock ==========
 
