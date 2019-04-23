@@ -19,7 +19,6 @@ $(function(){
   // ===== Alien stuff =========
   // Target aliens
   var aliens = $(".aliens");
-
   // Initial alien position
   var aliensx = 100;
   var aliensy = 100;
@@ -34,7 +33,19 @@ $(function(){
   // ============= Alien movement from clicking start ==============
   $(".start-button").click(function(){
     if (!gamerunning){
-      aliens.append('<table><tr class="row1"><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th></tr><tr class="row2"><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th></tr><tr class="row3"><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th><th><img class="alien1" src="images/alien1.png" ></th></tr><tr class="row4"><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th><th><img class="alien2" src="images/alien2.png" ></th></tr></table>')
+      for (var i = 0; i < 10; i++) {
+        aliens.append('<img class="alien1 cell[i]" src="images/alien1.png">')
+      }
+      for (var i = 0; i < 10; i++) {
+        aliens.append('<img class="alien2 cell[i]" src="images/alien2.png">')
+      }
+      for (var i = 0; i < 10; i++) {
+        aliens.append('<img class="alien1 cell[i]" src="images/alien1.png">')
+      }
+      for (var i = 0; i < 10; i++) {
+        aliens.append('<img class="alien2 cell[i]" src="images/alien2.png">')
+      }
+
       gameInterval = setInterval(function(){
   // ========== coordinates of alienblock ==========
 
@@ -106,20 +117,13 @@ $(function(){
           var bulletTop = bullet.offset().top;
           // Alien coordinates
           var aliensBottom = aliens.offset().top + aliens.height();
-          var row1Bottom = row1.offset().top + row1.height();
-          var row2Bottom = row2.offset().top + row2.height();
-          var row3Bottom = row3.offset().top + row3.height();
-          var row4Bottom = row4.offset().top + row4.height();
 
           bullety+=10;
           bullet.css({
             "bottom":bullety
           })
-          if (bulletTop<=row1Bottom) {
+          if (bulletTop<=aliensBottom) {
             console.log("contact row 1");
-            bullet.remove();
-          }else if (bulletTop<=row2Bottom) {
-            console.log("contact row 2");
             bullet.remove();
           }
 

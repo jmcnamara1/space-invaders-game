@@ -35,17 +35,19 @@ body {
   width: 240px;
 }
 .aliens {
-  /* background-color: #57b900; */
+  background-color: #57b900;
+  height: 200px;
   left: 170px;
   position: absolute;
   top: 100px;
   width: 650px;
 }
 .alien1 {
-  width: 100%;
+  width: 10%;
 }
 .alien2 {
-  width: 80%;
+  width: 8%;
+  margin: 1%;
 }
 .ship {
   /* background-color: purple; */
