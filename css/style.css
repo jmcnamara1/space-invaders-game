@@ -25,6 +25,7 @@ body {
 .score-value {
   color: #57b900;
   float: right;
+  padding-right: 40px;
 }
 .lives {
   /* background-color: yellow; */
@@ -34,12 +35,18 @@ body {
   width: 240px;
 }
 .aliens {
-  background-color: #57b900;
+  /* background-color: #57b900; */
   height: 200px;
   left: 170px;
   position: absolute;
   top: 100px;
   width: 650px;
+}
+.alien1 {
+  width: 100%;
+}
+.alien2 {
+  width: 80%;
 }
 .ship {
   /* background-color: purple; */
