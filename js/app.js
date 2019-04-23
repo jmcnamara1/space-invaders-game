@@ -92,6 +92,7 @@ $(function(){
     ship.css({
       'left': shipx+'px'
     })
+    // Bullet stuff
     if (event.key == " ") {
       $('.container').append('<div class="bullet"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>');
       var bullet = $(".bullet");
@@ -99,8 +100,8 @@ $(function(){
         "left":shipx + ship.width()/2 - 3,
         "bottom":20 + ship.height()
       })
-      console.log("dog");
+      
     }
   })
-
+// End of $(function)
 })
