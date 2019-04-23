@@ -26,24 +26,24 @@ $(function(){
     'left': aliensx,
     'top': aliensy
   })
-  // Target alien rows
-
   // Initial direction of alien block movement
   var dirx = "+";
+
+
   // ============= Alien movement from clicking start ==============
   $(".start-button").click(function(){
     if (!gamerunning){
       for (var i = 0; i < 10; i++) {
-        aliens.append('<img class="alien1 cell[i]" src="images/alien1.png">')
+        aliens.append(`<img class="row1 cell${i} alien2" src="images/alien2.png">`)
       }
       for (var i = 0; i < 10; i++) {
-        aliens.append('<img class="alien2 cell[i]" src="images/alien2.png">')
+        aliens.append(`<img class="row2 cell${i} alien1" src="images/alien1.png">`)
       }
       for (var i = 0; i < 10; i++) {
-        aliens.append('<img class="alien1 cell[i]" src="images/alien1.png">')
+        aliens.append(`<img class="row3 cell${i} alien2" src="images/alien2.png">`)
       }
       for (var i = 0; i < 10; i++) {
-        aliens.append('<img class="alien2 cell[i]" src="images/alien2.png">')
+        aliens.append(`<img class="row4 cell${i} alien1" src="images/alien1.png">`)
       }
 
       gameInterval = setInterval(function(){
