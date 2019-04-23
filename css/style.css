@@ -71,3 +71,6 @@ body {
   float: left;
   font-family: sans-serif;
 }
+.bullet {
+  position: absolute;
+}
