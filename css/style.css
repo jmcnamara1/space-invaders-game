@@ -44,10 +44,12 @@ body {
 }
 .alien1 {
   width: 10%;
+  position: absolute;
 }
 .alien2 {
   width: 8%;
   margin: 1%;
+  position: absolute;
 }
 .ship {
   /* background-color: purple; */

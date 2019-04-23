@@ -34,20 +34,22 @@ $(function(){
   $(".start-button").click(function(){
     if (!gamerunning){
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row1 cell${i} alien2" src="images/alien2.png">`)
+        aliens.append(`<img class="row1 alien2" src="images/alien2.png">`)
       }
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row2 cell${i} alien1" src="images/alien1.png">`)
+        aliens.append(`<img class="row2 alien1" src="images/alien1.png">`)
       }
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row3 cell${i} alien2" src="images/alien2.png">`)
+        aliens.append(`<img class="row3 alien2" src="images/alien2.png">`)
       }
       for (var i = 0; i < 10; i++) {
-        aliens.append(`<img class="row4 cell${i} alien1" src="images/alien1.png">`)
+        aliens.append(`<img class="row4 alien1" src="images/alien1.png">`)
+        
       }
-
       gameInterval = setInterval(function(){
   // ========== coordinates of alienblock ==========
+
+
 
         var aliensLeft = aliens.offset().left;
         var aliensRight = aliensLeft + aliens.width();
@@ -76,6 +78,7 @@ $(function(){
       clearInterval(gameInterval)
     }
   })
+
 
   // ============== Control of ship and bullets =================
   $("body").keydown(function(){
@@ -111,20 +114,37 @@ $(function(){
           "left":bulletx,
           "bottom":bullety
         })
+
         // ==== Interval of bullet =====
         bulletInterval = setInterval(function(){
           // Bullet coordinates
           var bulletTop = bullet.offset().top;
-          // Alien coordinates
-          var aliensBottom = aliens.offset().top + aliens.height();
-
+          var bulletLeft = bullet.offset().left;
+          var bulletRight = bulletLeft + bullet.width();
+          // Adjusts bullet position
           bullety+=10;
           bullet.css({
             "bottom":bullety
           })
-          if (bulletTop<=aliensBottom) {
+          // Alien row bottom coordinates
+          var row1Bottom = row1.offset().top + row1.height();
+          var row2Bottom = row2.offset().top + row2.height();
+          var row3Bottom = row3.offset().top + row3.height();
+          var row4Bottom = row4.offset().top + row4.height();
+          // ======== Individual alien left and rights ========
+          //  Row 4
+          var row4Coors = [];
+          row4.each(function(index){
+            var left = $(this).offset().left;
+            var right = left + $(this).width();
+            row4Coors[index] = left;
+          })
+
+
+          if (bulletTop<=row4Bottom && bulletLeft>=row4Coors[0] &&  bulletRight<=(row4Coors[0]+65)) {
             console.log("contact row 1");
             bullet.remove();
+            row4[0].remove();
           }
 
         },20);
