@@ -75,9 +75,9 @@ $(function(){
         var aliensRight = aliensLeft + aliens.width();
     // Changes postion of the alien block
         if (dirx === "+") {
-          aliensx+=1;
+          aliensx+=2;
         }else if (dirx === "-") {
-          aliensx-=1;
+          aliensx-=2;
         }
         aliens.css({
           'left': aliensx,
@@ -91,7 +91,7 @@ $(function(){
           aliensy += 20;
           dirx = "+";
         }
-      },50);
+      },30);
       gamerunning = true;
       } else {
         gamerunning = false;
@@ -169,12 +169,13 @@ $(function(){
               })
             },20);
           }
-          // Bullet count limit end
+        // Bullet count limit end
         }
-        // game running end
+      // game running end
       }
-      // Key down end
+    // Key down end
     })
+  // Start button click function
   })
 // End of $(function)
 })
