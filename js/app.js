@@ -14,11 +14,12 @@ $(function(){
   // Initial direction of alien block movement
   var dirx = "+";
 
-  container.append('<div class="start-button"><button type="button" name="button">Start game</button></div>')
+  container.append("<div class='start-button'><button type='button' name='button'>Start game</button><h1>Controls</h1><hr><p>Left arrow or a to move left</p><hr><p>Right arrow or d to move right</p><hr><p>Space to shoot</p></div>")
   var startButton = $(".start-button");
 
   // ============= Game start from clicking ==============
   startButton.click(function(){
+    startButton.remove();
     if (!gamerunning){
       container.append('<div class="score"><span class="score-name">Score:</span> <span class="score-value"></span></div><div class="lives"><span class="life-text">Lives:</span><span class="life-image"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"></span></div><div class="aliens"></div><div class="ship"><img class="ship-image"src="images/ship.png"></div>')
       $(".score-value").html(score);

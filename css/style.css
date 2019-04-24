@@ -15,7 +15,7 @@ body {
   width: 1000px;
 }
 .start-button {
-  background-color: blue;
+  color: white;
   position: absolute;
   left: 0;
   right: 0;
@@ -30,6 +30,12 @@ body {
 }
 .start-button button:hover {
   color: #57b900;
+}
+.start-button h1 {
+  padding-top: 50px;
+}
+.start-button p {
+  padding: 10px;
 }
 .score {
   /* background-color: blue; */
