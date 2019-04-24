@@ -21,7 +21,7 @@ $(function(){
   startButton.click(function(){
     startButton.remove();
     if (!gamerunning){
-      container.append('<div class="score"><span class="score-name">Score:</span> <span class="score-value"></span></div><div class="lives"><span class="life-text">Lives:</span><span class="life-image"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"></span></div><div class="aliens"></div><div class="ship"><img class="ship-image"src="images/ship.png"></div>')
+      container.append('<div class="score"><span class="score-name">Score:</span> <span class="score-value"></span></div><div class="lives"><span class="life-text">Lives:</span><span class="life-image"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"></span></div><div class="ship"><img class="ship-image"src="images/ship.png"></div><div class="aliens"></div>')
       $(".score-value").html(score);
       var ship = $(".ship");
       // Initial ship postion
@@ -40,34 +40,33 @@ $(function(){
         'left': aliensx,
         'top': aliensy
       })
-
-      for (var i = 0; i < 10; i++) {
+      function createAliens() {
+        for (var i = 0; i < 10; i++) {
         aliens.append(`<img class="row1 alien2 enemy" src="images/alien2.png">`)
       }
       $(".row1").each(function(index){
         $(this).css({"left":index*65})
       })
-
       for (var i = 0; i < 10; i++) {
         aliens.append(`<img class="row2 alien1 enemy" src="images/alien1.png">`)
       }
       $(".row2").each(function(index){
         $(this).css({"left":index*65, "top":65})
       })
-
       for (var i = 0; i < 10; i++) {
         aliens.append(`<img class="row3 alien2 enemy" src="images/alien2.png">`)
       }
       $(".row3").each(function(index){
         $(this).css({"left":index*65, "top":130})
       })
-
       for (var i = 0; i < 10; i++) {
         aliens.append(`<img class="row4 alien1 enemy" src="images/alien1.png">`)
       }
       $(".row4").each(function(index){
         $(this).css({"left":index*65, "top":195})
       })
+      }
+      createAliens();
   // =============Alien block movement interval ==============
       gameInterval = setInterval(function(){
   // ========== coordinates of alienblock ==========
@@ -175,6 +174,9 @@ $(function(){
       }
     // Key down end
     })
+    if (score == 4000) {
+      createAliens();
+    }
   // Start button click function
   })
 // End of $(function)
