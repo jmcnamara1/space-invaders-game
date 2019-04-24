@@ -96,13 +96,17 @@ $(function(){
         }
         // Enemy respawn
         var enemyCount = $(".enemy").length
+        console.log(enemyCount);
         if (enemyCount == 0) {
-          $(".enemy").remove()
+          alienSpeed += 1;
           aliensx = 100;
           aliensy = 100;
+          aliens.css({
+            'left': aliensx,
+            'top': aliensy
+          })
           dirx = "+"
           createAliens();
-          console.log(enemyCount);
         }
 
       },30);
@@ -173,12 +177,14 @@ $(function(){
                     if (bulletCount=1) {
                       bulletCount--
                     }
+                    clearInterval(bulletInterval)
                     return false
                   } else if (bulletTop<=containerTop) {
                     bullet.remove()
                     if (bulletCount=1) {
                       bulletCount--
                     }
+                    clearInterval(bulletInterval)
                     return false
                   }
                 })
