@@ -20,12 +20,16 @@ body {
   height: 50px;
   padding: 8px 0 0 20px;
   position: absolute;
-  width: 200px;
+  /* width: 200px; */
+
+}
+.score-name {
+  float: left;
 }
 .score-value {
   color: #57b900;
-  float: right;
-  padding-right: 40px;
+  float: left;
+  padding-right: 100px;
 }
 .lives {
   /* background-color: yellow; */

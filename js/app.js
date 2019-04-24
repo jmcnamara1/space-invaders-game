@@ -2,6 +2,8 @@ $(function(){
   var gameInterval;
   var bulletInterval;
   var gamerunning = false;
+  var score = 0;
+  $(".score-value").html(score);
   // Target container
   var container = $(".container");
   // container coordinates
@@ -111,10 +113,9 @@ $(function(){
 
 
       // Bullet stuff
-      if (bulletCount<1) {
+      if (bulletCount<=0) {
         if (event.key == " ") {
           bulletCount++
-          console.log(bulletCount);
           $('.container').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
           // Target bullet
           var bullet = $(`.bullet${bulletCount}`);
@@ -147,11 +148,17 @@ $(function(){
                 if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
                   $(this).remove();
                   bullet.remove();
-                  bulletCount--
+                  score+=1000
+                  $(".score-value").html(score);
+                  if (bulletCount=1) {
+                    bulletCount--
+                  }
                   return false
-                } else if (bulletBottom<=containerTop) {
+                } else if (bulletTop<=containerTop) {
                   bullet.remove()
-                  bulletCount--
+                  if (bulletCount=1) {
+                    bulletCount--
+                  }
                   return false
                 }
               })
@@ -159,6 +166,7 @@ $(function(){
 
           },20);
         }
+        // Bullet count limit end
       }
       // game running end
     }
