@@ -16,6 +16,7 @@ $(function(){
     'left': shipx
   })
   // ====== Bullet stuff =======
+  var bulletCount = 0;
   // ===== Alien stuff =========
   // Target aliens
   var aliens = $(".aliens");
@@ -103,10 +104,8 @@ $(function(){
       var shipRight = shipLeft + ship.width();
       // ship controls
       if ((event.key == "a" || event.key == "ArrowLeft") && (shipLeft>containerLeft)) {
-        console.log("left");
         shipx-=50;
         } else if ((event.key == "d" || event.key == "ArrowRight") && (shipRight<containerRight)) {
-        console.log("right");
         shipx+=50;
       }
       ship.css({
@@ -114,9 +113,11 @@ $(function(){
       })
       // Bullet stuff
       if (event.key == " ") {
-        $('.container').append('<div class="bullet"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>');
+        bulletCount++
+        console.log(bulletCount);
+        $('.container').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
         // Target bullet
-        var bullet = $(".bullet");
+        var bullet = $(`.bullet${bulletCount}`);
         // Initial bullet position
         var bullety = 20 + ship.height();
         var bulletx = shipx + ship.width()/2 - 3;
@@ -124,11 +125,6 @@ $(function(){
           "left":bulletx,
           "bottom":bullety
         })
-
-        var row1 = $(".row1");
-        var row2 = $(".row2");
-        var row3 = $(".row3");
-        var row4 = $(".row4");
 
 
         // ==== Interval of bullet =====
@@ -142,6 +138,11 @@ $(function(){
           bullet.css({
             "bottom":bullety
           })
+          // ======= Target alien rows ==================
+          var row1 = $(".row1");
+          var row2 = $(".row2");
+          var row3 = $(".row3");
+          var row4 = $(".row4");
           // ========= Alien row bottom coordinates ===========
           var row1Bottom = row1.offset().top + row1.height();
           var row2Bottom = row2.offset().top + row2.height();
@@ -185,7 +186,9 @@ $(function(){
 
         },20);
       }
+      // game running end
     }
+    // Key down end
   })
 // End of $(function)
 })
