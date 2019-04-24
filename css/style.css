@@ -14,6 +14,23 @@ body {
   position: relative;
   width: 1000px;
 }
+.start-button {
+  background-color: blue;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  text-align: center;
+}
+.start-button button {
+  font-size: 50px;
+  font-family: "classic-arcade";
+}
+.start-button button:hover {
+  color: #57b900;
+}
 .score {
   /* background-color: blue; */
   color: white;

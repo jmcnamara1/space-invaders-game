@@ -11,10 +11,11 @@ $(function(){
   var containerRight = containerLeft + container.width();
   var containerTop = container.offset().top;
   // =====Target start button
-  var startButton = $(".start-button");
   // Initial direction of alien block movement
   var dirx = "+";
 
+  container.append('<div class="start-button"><button type="button" name="button">Start game</button></div>')
+  var startButton = $(".start-button");
 
   // ============= Game start from clicking ==============
   startButton.click(function(){
@@ -98,7 +99,7 @@ $(function(){
 
 
     // ============== Control of ship and bullets =================
-    $("body").keydown(function(){
+    $("body").keyup(function(){
       if (gamerunning) {
         // coordinates of ship walls
         var shipLeft = ship.offset().left;
