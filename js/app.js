@@ -123,14 +123,14 @@ $(function(){
         var bulletx = shipx + ship.width()/2 - 3;
         bullet.css({
           "left":bulletx,
-          "bottom":bullety
-        })
+          "bottom":bullety })
 
 
         // ==== Interval of bullet =====
         bulletInterval = setInterval(function(){
           // Bullet coordinates
           var bulletTop = bullet.offset().top;
+          var bulletBottom = bulletTop + bullet.height();
           var bulletLeft = bullet.offset().left;
           var bulletRight = bulletLeft + bullet.width();
           // Adjusts bullet position
@@ -178,11 +178,11 @@ $(function(){
             row1Coors[index] = left;
           })
           // =================================================
-          if (bulletTop<=row1Bottom && bulletLeft>=row1Coors[0] &&  bulletRight<=(row1Coors[0]+65)) {
-            console.log("contact row 1");
-            bullet.remove();
-            row1[0].remove();
-          }
+          // if (bulletTop<=row1Bottom && bulletLeft>=row1Coors[0] &&  bulletRight<=(row1Coors[0]+65)) {
+          //   console.log("contact row 1");
+          //   bullet.remove();
+          //   row1[0].remove();
+          // }
 
         },20);
       }
