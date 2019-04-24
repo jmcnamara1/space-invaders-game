@@ -3,39 +3,42 @@ $(function(){
   var bulletInterval;
   var gamerunning = false;
   var score = 0;
-  $(".score-value").html(score);
-  // Target container
+  var bulletCount = 0;
+  // ===== Target container =======
   var container = $(".container");
   // container coordinates
   var containerLeft = container.offset().left;
   var containerRight = containerLeft + container.width();
   var containerTop = container.offset().top;
-  // ==== Target ship =====
-  var ship = $(".ship");
-  // Initial ship postion
-  var shipx = 450;
-  ship.css({
-    'left': shipx
-  })
-  // ====== Bullet stuff =======
-  var bulletCount = 0;
-  // ===== Alien stuff =========
-  // Target aliens
-  var aliens = $(".aliens");
-  // Initial alien position
-  var aliensx = 100;
-  var aliensy = 100;
-  aliens.css({
-    'left': aliensx,
-    'top': aliensy
-  })
+  // =====Target start button
+  var startButton = $(".start-button");
   // Initial direction of alien block movement
   var dirx = "+";
 
 
-  // ============= Alien movement from clicking start ==============
-  $(".start-button").click(function(){
+  // ============= Game start from clicking ==============
+  startButton.click(function(){
     if (!gamerunning){
+      container.append('<div class="score"><span class="score-name">Score:</span> <span class="score-value"></span></div><div class="lives"><span class="life-text">Lives:</span><span class="life-image"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"></span></div><div class="aliens"></div><div class="ship"><img class="ship-image"src="images/ship.png"></div>')
+      $(".score-value").html(score);
+      var ship = $(".ship");
+      // Initial ship postion
+      var shipx = 450;
+      ship.css({
+        'left': shipx
+      })
+      // ====== Bullet stuff =======
+      // ===== Alien stuff =========
+      // Target aliens
+      var aliens = $(".aliens");
+      // Initial alien position
+      var aliensx = 100;
+      var aliensy = 100;
+      aliens.css({
+        'left': aliensx,
+        'top': aliensy
+      })
+
       for (var i = 0; i < 10; i++) {
         aliens.append(`<img class="row1 alien2 enemy" src="images/alien2.png">`)
       }
@@ -88,89 +91,88 @@ $(function(){
         }
       },50);
       gamerunning = true;
-    } else {
-      gamerunning = false;
-      clearInterval(gameInterval)
-    }
-  })
-
-
-  // ============== Control of ship and bullets =================
-  $("body").keydown(function(){
-    if (gamerunning) {
-      // coordinates of ship walls
-      var shipLeft = ship.offset().left;
-      var shipRight = shipLeft + ship.width();
-      // ship controls
-      if ((event.key == "a" || event.key == "ArrowLeft") && (shipLeft>containerLeft)) {
-        shipx-=50;
-        } else if ((event.key == "d" || event.key == "ArrowRight") && (shipRight<containerRight)) {
-        shipx+=50;
+      } else {
+        gamerunning = false;
+        clearInterval(gameInterval)
       }
-      ship.css({
-        'left': shipx+'px'
-      })
 
 
-      // Bullet stuff
-      if (bulletCount<=0) {
-        if (event.key == " ") {
-          bulletCount++
-          $('.container').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
-          // Target bullet
-          var bullet = $(`.bullet${bulletCount}`);
-          // Initial bullet position
-          var bullety = 20 + ship.height();
-          var bulletx = shipx + ship.width()/2 - 3;
-          bullet.css({
-            "left":bulletx,
-            "bottom":bullety })
-
-
-          // ==== Interval of bullet =====
-          bulletInterval = setInterval(function(){
-            // Adjusts bullet position
-            bullety+=10;
-            bullet.css({
-              "bottom":bullety
-            })
-
-            $(".bullet").each(function(){
-              var bulletTop = $(this).offset().top;
-              var bulletBottom = bulletTop + $(this).height();
-              var bulletLeft = $(this).offset().left;
-              var bulletRight = bulletLeft + $(this).width();
-              $(".enemy").each(function(){
-                var enemyLeft = $(this).offset().left;
-                var enemyRight = enemyLeft + $(this).width();
-                var enemyTop = $(this).offset().top;
-                var enemyBottom = $(this).offset().top + $(this).height();
-                if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
-                  $(this).remove();
-                  bullet.remove();
-                  score+=1000
-                  $(".score-value").html(score);
-                  if (bulletCount=1) {
-                    bulletCount--
-                  }
-                  return false
-                } else if (bulletTop<=containerTop) {
-                  bullet.remove()
-                  if (bulletCount=1) {
-                    bulletCount--
-                  }
-                  return false
-                }
-              })
-            })
-
-          },20);
+    // ============== Control of ship and bullets =================
+    $("body").keydown(function(){
+      if (gamerunning) {
+        // coordinates of ship walls
+        var shipLeft = ship.offset().left;
+        var shipRight = shipLeft + ship.width();
+        // ship controls
+        if ((event.key == "a" || event.key == "ArrowLeft") && (shipLeft>containerLeft)) {
+          shipx-=50;
+          } else if ((event.key == "d" || event.key == "ArrowRight") && (shipRight<containerRight)) {
+          shipx+=50;
         }
-        // Bullet count limit end
+        ship.css({
+          'left': shipx+'px'
+        })
+
+
+        // Bullet stuff
+        if (bulletCount<=0) {
+          if (event.key == " ") {
+            bulletCount++
+            $('.container').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
+            // Target bullet
+            var bullet = $(`.bullet${bulletCount}`);
+            // Initial bullet position
+            var bullety = 20 + ship.height();
+            var bulletx = shipx + ship.width()/2 - 3;
+            bullet.css({
+              "left":bulletx,
+              "bottom":bullety })
+
+
+            // ==== Interval of bullet =====
+            bulletInterval = setInterval(function(){
+              // Adjusts bullet position
+              bullety+=10;
+              bullet.css({
+                "bottom":bullety
+              })
+
+              $(".bullet").each(function(){
+                var bulletTop = $(this).offset().top;
+                var bulletBottom = bulletTop + $(this).height();
+                var bulletLeft = $(this).offset().left;
+                var bulletRight = bulletLeft + $(this).width();
+                $(".enemy").each(function(){
+                  var enemyLeft = $(this).offset().left;
+                  var enemyRight = enemyLeft + $(this).width();
+                  var enemyTop = $(this).offset().top;
+                  var enemyBottom = $(this).offset().top + $(this).height();
+                  if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
+                    $(this).remove();
+                    bullet.remove();
+                    score+=1000
+                    $(".score-value").html(score);
+                    if (bulletCount=1) {
+                      bulletCount--
+                    }
+                    return false
+                  } else if (bulletTop<=containerTop) {
+                    bullet.remove()
+                    if (bulletCount=1) {
+                      bulletCount--
+                    }
+                    return false
+                  }
+                })
+              })
+            },20);
+          }
+          // Bullet count limit end
+        }
+        // game running end
       }
-      // game running end
-    }
-    // Key down end
+      // Key down end
+    })
   })
 // End of $(function)
 })
