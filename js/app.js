@@ -7,7 +7,7 @@ $(function(){
   // container coordinates
   var containerLeft = container.offset().left;
   var containerRight = containerLeft + container.width();
-
+  var containerTop = container.offset().top;
   // ==== Target ship =====
   var ship = $(".ship");
   // Initial ship postion
@@ -61,12 +61,9 @@ $(function(){
       $(".row4").each(function(index){
         $(this).css({"left":index*65, "top":195})
       })
-
+  // =============Alien block movement interval ==============
       gameInterval = setInterval(function(){
   // ========== coordinates of alienblock ==========
-
-
-
         var aliensLeft = aliens.offset().left;
         var aliensRight = aliensLeft + aliens.width();
     // Changes postion of the alien block
@@ -111,7 +108,12 @@ $(function(){
       ship.css({
         'left': shipx+'px'
       })
+
+
       // Bullet stuff
+
+
+
       if (event.key == " ") {
         bulletCount++
         console.log(bulletCount);
@@ -128,64 +130,38 @@ $(function(){
 
         // ==== Interval of bullet =====
         bulletInterval = setInterval(function(){
-          // Bullet coordinates
-          var bulletTop = bullet.offset().top;
-          var bulletBottom = bulletTop + bullet.height();
-          var bulletLeft = bullet.offset().left;
-          var bulletRight = bulletLeft + bullet.width();
           // Adjusts bullet position
           bullety+=10;
           bullet.css({
             "bottom":bullety
           })
-          // ======= Target alien rows ==================
-          var row1 = $(".row1");
-          var row2 = $(".row2");
-          var row3 = $(".row3");
-          var row4 = $(".row4");
-          // ========= Alien row bottom coordinates ===========
-          var row1Bottom = row1.offset().top + row1.height();
-          var row2Bottom = row2.offset().top + row2.height();
-          var row3Bottom = row3.offset().top + row3.height();
-          var row4Bottom = row4.offset().top + row4.height();
-          // ======== Individual alien left coordinates ========
-          //  Row 4
-          var row4Coors = [];
-          row4.each(function(index){
-            var left = $(this).offset().left;
-            var right = left + $(this).width();
-            row4Coors[index] = left;
+
+          $(".bullet").each(function(){
+            var bulletTop = $(this).offset().top;
+            var bulletBottom = bulletTop + $(this).height();
+            var bulletLeft = $(this).offset().left;
+            var bulletRight = bulletLeft + $(this).width();
+            $(".enemy").each(function(){
+              var enemyLeft = $(this).offset().left;
+              var enemyRight = enemyLeft + $(this).width();
+              var enemyTop = $(this).offset().top;
+              var enemyBottom = $(this).offset().top + $(this).height();
+              if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
+                $(this).remove();
+                bullet.remove();
+                bulletCount--
+                return false
+              } else if (bulletBottom<=containerTop) {
+                bullet.remove()
+                bulletCount--
+                return false
+              }
+            })
           })
-          // Row 3
-          var row3Coors = [];
-          row3.each(function(index){
-            var left = $(this).offset().left;
-            var right = left + $(this).width();
-            row3Coors[index] = left;
-          })
-          // Row 2
-          var row2Coors = [];
-          row2.each(function(index){
-            var left = $(this).offset().left;
-            var right = left + $(this).width();
-            row2Coors[index] = left;
-          })
-          // Row 1
-          var row1Coors = [];
-          row1.each(function(index){
-            var left = $(this).offset().left;
-            var right = left + $(this).width();
-            row1Coors[index] = left;
-          })
-          // =================================================
-          // if (bulletTop<=row1Bottom && bulletLeft>=row1Coors[0] &&  bulletRight<=(row1Coors[0]+65)) {
-          //   console.log("contact row 1");
-          //   bullet.remove();
-          //   row1[0].remove();
-          // }
 
         },20);
       }
+
       // game running end
     }
     // Key down end
