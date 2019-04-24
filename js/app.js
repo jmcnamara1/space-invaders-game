@@ -111,57 +111,55 @@ $(function(){
 
 
       // Bullet stuff
-
-
-
-      if (event.key == " ") {
-        bulletCount++
-        console.log(bulletCount);
-        $('.container').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
-        // Target bullet
-        var bullet = $(`.bullet${bulletCount}`);
-        // Initial bullet position
-        var bullety = 20 + ship.height();
-        var bulletx = shipx + ship.width()/2 - 3;
-        bullet.css({
-          "left":bulletx,
-          "bottom":bullety })
-
-
-        // ==== Interval of bullet =====
-        bulletInterval = setInterval(function(){
-          // Adjusts bullet position
-          bullety+=10;
+      if (bulletCount<1) {
+        if (event.key == " ") {
+          bulletCount++
+          console.log(bulletCount);
+          $('.container').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
+          // Target bullet
+          var bullet = $(`.bullet${bulletCount}`);
+          // Initial bullet position
+          var bullety = 20 + ship.height();
+          var bulletx = shipx + ship.width()/2 - 3;
           bullet.css({
-            "bottom":bullety
-          })
+            "left":bulletx,
+            "bottom":bullety })
 
-          $(".bullet").each(function(){
-            var bulletTop = $(this).offset().top;
-            var bulletBottom = bulletTop + $(this).height();
-            var bulletLeft = $(this).offset().left;
-            var bulletRight = bulletLeft + $(this).width();
-            $(".enemy").each(function(){
-              var enemyLeft = $(this).offset().left;
-              var enemyRight = enemyLeft + $(this).width();
-              var enemyTop = $(this).offset().top;
-              var enemyBottom = $(this).offset().top + $(this).height();
-              if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
-                $(this).remove();
-                bullet.remove();
-                bulletCount--
-                return false
-              } else if (bulletBottom<=containerTop) {
-                bullet.remove()
-                bulletCount--
-                return false
-              }
+
+          // ==== Interval of bullet =====
+          bulletInterval = setInterval(function(){
+            // Adjusts bullet position
+            bullety+=10;
+            bullet.css({
+              "bottom":bullety
             })
-          })
 
-        },20);
+            $(".bullet").each(function(){
+              var bulletTop = $(this).offset().top;
+              var bulletBottom = bulletTop + $(this).height();
+              var bulletLeft = $(this).offset().left;
+              var bulletRight = bulletLeft + $(this).width();
+              $(".enemy").each(function(){
+                var enemyLeft = $(this).offset().left;
+                var enemyRight = enemyLeft + $(this).width();
+                var enemyTop = $(this).offset().top;
+                var enemyBottom = $(this).offset().top + $(this).height();
+                if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
+                  $(this).remove();
+                  bullet.remove();
+                  bulletCount--
+                  return false
+                } else if (bulletBottom<=containerTop) {
+                  bullet.remove()
+                  bulletCount--
+                  return false
+                }
+              })
+            })
+
+          },20);
+        }
       }
-
       // game running end
     }
     // Key down end
