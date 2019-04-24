@@ -13,9 +13,12 @@ $(function(){
   // =====Target start button
   // Initial direction of alien block movement
   var dirx = "+";
-
+  var alienSpeed = 1;
   container.append("<div class='start-button'><button type='button' name='button'>Start game</button><h1>Controls</h1><hr><p>Left arrow or a to move left</p><hr><p>Right arrow or d to move right</p><hr><p>Space to shoot</p></div>")
   var startButton = $(".start-button");
+
+  // Initial alien position
+
 
   // ============= Game start from clicking ==============
   startButton.click(function(){
@@ -31,15 +34,14 @@ $(function(){
       })
       // ====== Bullet stuff =======
       // ===== Alien stuff =========
-      // Target aliens
       var aliens = $(".aliens");
-      // Initial alien position
       var aliensx = 100;
       var aliensy = 100;
       aliens.css({
         'left': aliensx,
         'top': aliensy
       })
+      // Target aliens
       function createAliens() {
         for (var i = 0; i < 10; i++) {
         aliens.append(`<img class="row1 alien2 enemy" src="images/alien2.png">`)
@@ -67,6 +69,8 @@ $(function(){
       })
       }
       createAliens();
+
+
   // =============Alien block movement interval ==============
       gameInterval = setInterval(function(){
   // ========== coordinates of alienblock ==========
@@ -74,9 +78,9 @@ $(function(){
         var aliensRight = aliensLeft + aliens.width();
     // Changes postion of the alien block
         if (dirx === "+") {
-          aliensx+=2;
+          aliensx+=(2*alienSpeed);
         }else if (dirx === "-") {
-          aliensx-=2;
+          aliensx-=(2*alienSpeed);
         }
         aliens.css({
           'left': aliensx,
@@ -84,18 +88,31 @@ $(function(){
         })
     // Changes direction and drops it down a level
         if (aliensRight>=containerRight) {
-          aliensy += 20;
+          aliensy += 15;
           dirx = "-";
         } else if (aliensLeft<=containerLeft) {
-          aliensy += 20;
+          aliensy += 15;
           dirx = "+";
         }
+        // Enemy respawn
+        var enemyCount = $(".enemy").length
+        if (enemyCount == 0) {
+          $(".enemy").remove()
+          aliensx = 100;
+          aliensy = 100;
+          dirx = "+"
+          createAliens();
+          console.log(enemyCount);
+        }
+
       },30);
       gamerunning = true;
       } else {
         gamerunning = false;
         clearInterval(gameInterval)
       }
+
+
 
 
     // ============== Control of ship and bullets =================
@@ -172,11 +189,14 @@ $(function(){
         }
       // game running end
       }
-    // Key down end
+    // Keyup end
     })
-    if (score == 4000) {
-      createAliens();
-    }
+
+
+
+
+
+
   // Start button click function
   })
 // End of $(function)
