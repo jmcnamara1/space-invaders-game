@@ -1,6 +1,5 @@
 $(function(){
-  var gameInterval;
-  var bulletInterval;
+  var gameInterval, bulletInterval;
   var gamerunning = false;
   var bulletCount = 0;
   var score = 0;
@@ -32,7 +31,7 @@ $(function(){
     startButton.click(function(){
       // Initial values set every time a
       dirx = "+";
-      alienSpeed = 8;
+      alienSpeed = 1;
       shipSpeed = 50;
       score = 0;
       $(".score-value").html(score);
@@ -101,9 +100,9 @@ $(function(){
           var aliensRight = aliensLeft + aliens.width();
           // Changes postion of the alien block
           if (dirx === "+") {
-            aliensx+=(2*alienSpeed);
+            aliensx+=(1*alienSpeed);
           }else if (dirx === "-") {
-            aliensx-=(2*alienSpeed);
+            aliensx-=(1*alienSpeed);
           }
           aliens.css({
             'left': aliensx,
@@ -127,7 +126,6 @@ $(function(){
               'left': aliensx,
               'top': aliensy
             })
-            dirx = "+"
             createAliens();
           }
           // Targets added game features
@@ -157,93 +155,88 @@ $(function(){
         },30);
       // If game running end
       }
-
-        // ============== Control of ship and bullets =================
-          $("body").keyup(function(){
-          event.preventDefault();
-          if (gamerunning) {
-            // ship controls
-            if ((event.key == "a" || event.key == "ArrowLeft") && (shipLeft>containerLeft)) {
-              shipx-=shipSpeed;
-            } else if ((event.key == "d" || event.key == "ArrowRight") && (shipRight<containerRight)) {
-              shipx+=shipSpeed;
-            }
-            // Adjust position of ship
-            ship.css({
-              'left': shipx
-            })
-
-            // Bullet stuff
-            if (bulletCount<=0) {
-              if (event.key == " ") {
-                bulletCount++
-                console.log(shipx);
-                // Creates bullet on click
-                $('.container2').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
-                // Target bullet
-                var bullet = $(`.bullet${bulletCount}`);
-                // Initial bullet position
-                var bullety = 20 + ship.height();
-                var bulletx = shipx + ship.width()/2 - 3;
-                bullet.css({
-                  "left":bulletx,
-                  "bottom":bullety })
+    // Start button click function
+    })
 
 
-                  // ==== Interval of bullet =====
-                  bulletInterval = setInterval(function(){
-                    // Adjusts bullet position
-                    bullety+=10;
-                    bullet.css({
-                      "bottom":bullety
-                    })
 
-                    $(".bullet").each(function(){
-                      var bulletTop = $(this).offset().top;
-                      var bulletBottom = bulletTop + $(this).height();
-                      var bulletLeft = $(this).offset().left;
-                      var bulletRight = bulletLeft + $(this).width();
-                      $(".enemy").each(function(){
-                        var enemyLeft = $(this).offset().left;
-                        var enemyRight = enemyLeft + $(this).width();
-                        var enemyTop = $(this).offset().top;
-                        var enemyBottom = $(this).offset().top + $(this).height();
-                        if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
-                          $(this).remove();
-                          bullet.remove();
-                          score+=1000
-                          $(".score-value").html(score);
-                          if (bulletCount=1) {
-                            bulletCount--
-                          }
-                          clearInterval(bulletInterval)
-                          return false
-                        } else if (bulletTop<=containerTop) {
-                          bullet.remove()
-                          if (bulletCount=1) {
-                            bulletCount--
-                          }
-                          clearInterval(bulletInterval)
-                          return false
-                        }
-                      })
-                    })
-                  },20);
-                }
-                // Bullet count limit end
-              }
-            // game running end
-            }
-            // Keyup end
-          })
-          // Start button click function
+    // ============== Control of ship and bullets =================
+    $("body").keyup(function(){
+      event.preventDefault();
+      if (gamerunning) {
+        // ship controls
+        if ((event.key == "a" || event.key == "ArrowLeft") && (shipLeft>containerLeft)) {
+          shipx-=shipSpeed;
+        } else if ((event.key == "d" || event.key == "ArrowRight") && (shipRight<containerRight)) {
+          shipx+=shipSpeed;
+        }
+        // Adjusts position of ship
+        ship.css({
+          'left': shipx
         })
-
-  // Firstmenu end
+        // ============= Bullet creation and interaction =================
+        if (bulletCount<=0) {
+          if (event.key == " ") {
+            bulletCount++
+            // Creates bullet on click
+            $('.container2').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
+            // Target bullet
+            var bullet = $(`.bullet${bulletCount}`);
+            // Initial bullet position
+            var bullety = 20 + ship.height();
+            var bulletx = shipx + ship.width()/2 - 3;
+            bullet.css({
+              "left":bulletx,
+              "bottom":bullety
+            })
+              //Interval for bullets
+              bulletInterval = setInterval(function(){
+                // Adjusts bullet position
+                bullety+=10;
+                bullet.css({
+                  "bottom":bullety
+                })
+                // Function to check if bullets hit enemies
+                $(".bullet").each(function(){
+                  var bulletTop = $(this).offset().top;
+                  var bulletBottom = bulletTop + $(this).height();
+                  var bulletLeft = $(this).offset().left;
+                  var bulletRight = bulletLeft + $(this).width();
+                  $(".enemy").each(function(){
+                    var enemyLeft = $(this).offset().left;
+                    var enemyRight = enemyLeft + $(this).width();
+                    var enemyTop = $(this).offset().top;
+                    var enemyBottom = $(this).offset().top + $(this).height();
+                    if (bulletTop<=enemyBottom && bulletLeft<= enemyRight && bulletRight>=enemyLeft && bulletBottom>=enemyTop) {
+                      $(this).remove();
+                      bullet.remove();
+                      score+=1000
+                      $(".score-value").html(score);
+                      if (bulletCount=1) {
+                        bulletCount--
+                      }
+                      clearInterval(bulletInterval)
+                      return false
+                    } else if (bulletTop<=containerTop) {
+                      bullet.remove()
+                      if (bulletCount=1) {
+                        bulletCount--
+                      }
+                      clearInterval(bulletInterval)
+                      return false
+                    }
+                  })
+                })
+              },20);
+            }
+          // Bullet count limit end
+          }
+        // game running end
+        }
+      // Keyup end
+      })
   var endButton = $(".end-button");
   endButton.click(function(){
-      // Removes keyup Event Listeners on the keys as they were being applied twice from start button
-      $("body").off("keyup");
       // Switches to main menu screen
       container3.css({
         'display': 'none'
