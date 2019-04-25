@@ -19,8 +19,9 @@ $(function(){
   // Game content
   var gameContent = '<div class="game score"><span class="game score-name">Score:</span> <span class="game score-value"></span></div><div class="game lives"><span class="game life-text">Lives:</span><span class="game life-image"><img class="game ship-life"src="images/ship.png"><img class="game ship-life"src="images/ship.png"><img class="game ship-life"src="images/ship.png"></span></div><div class="game ship"><img class="game ship-image"src="images/ship.png"></div><div class="game aliens"></div>'
   // End menu content
-  var endMenu = `<div class="end-menu">Score:<span class="end-score"></span><hr><button type="button" name="button">Back to main menu</button></div>`;
+  var endMenu = `<div class="final-menu end-menu">Score:<span class="final-menu end-score"></span><hr><button class="final-menu end-button" type="button" name="button">Back to main menu</button></div>`;
   // Appends start button and instructions to container on page load
+
   container.append(startMenu);
   //Targets start menu
   var startButton = $(".start-button");
@@ -124,21 +125,33 @@ $(function(){
         }
         // Targets added game features
         var game = $(".game");
-        // Win condition
-          $(".enemy").each(function(){
-            var enemyBottom = $(this).offset().top + $(this).height();
-            if (enemyBottom>=shipTop) {
-              gamerunning = false
-              clearInterval(gameInterval)
-              game.remove();
-              container.append(endMenu);
-              $(".end-score").html(score);
-            }
-          })
+        // Loss condition
+        $(".enemy").each(function(){
+          var enemyBottom = $(this).offset().top + $(this).height();
+          if (enemyBottom>=shipTop) {
+            // Clears game container
+            game.remove();
+            $(".bullet").remove();
+            container.append(endMenu);
+            $(".end-score").html(score);
+            gamerunning = false
+            // Stops game running
+            clearInterval(gameInterval)
+          }
+        })
 
       },30);
-      gamerunning = true;
-      }
+
+    // If game running end
+    }
+    // BELOW TO BE ADDED
+    // var endButton = $(".end-button");
+    // var finalMenu = $(".final-menu")
+    // endButton.click(function(){
+    //   console.log("dog");
+    //   finalMenu.remove();
+    //   container.append(startButton);
+    // })
 
 
 
@@ -227,5 +240,6 @@ $(function(){
 
   // Start button click function
   })
+
 // End of $(function)
 })
