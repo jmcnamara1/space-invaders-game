@@ -2,8 +2,8 @@ $(function(){
   var gameInterval;
   var bulletInterval;
   var gamerunning = false;
-  var score = 0;
   var bulletCount = 0;
+  var score = 0;
   // ===== Target container =======
   var container = $(".container");
   // container coordinates
@@ -13,9 +13,16 @@ $(function(){
   // =====Target start button
   // Initial direction of alien block movement
   var dirx = "+";
-  var alienSpeed = 1;
+  var alienSpeed = 8;
+  // Start menu content
+  var startMenu = "<div class='start-button'><button type='button' name='button'>Start game</button><h1>Controls</h1><hr><p>Left arrow or a to move left</p><hr><p>Right arrow or d to move right</p><hr><p>Space to shoot</p></div>"
+  // Game content
+  var gameContent = '<div class="game score"><span class="game score-name">Score:</span> <span class="game score-value"></span></div><div class="game lives"><span class="game life-text">Lives:</span><span class="game life-image"><img class="game ship-life"src="images/ship.png"><img class="game ship-life"src="images/ship.png"><img class="game ship-life"src="images/ship.png"></span></div><div class="game ship"><img class="game ship-image"src="images/ship.png"></div><div class="game aliens"></div>'
+  // End menu content
+  var endMenu = `<div class="end-menu">Score:<span class="end-score"></span><hr><button type="button" name="button">Back to main menu</button></div>`;
   // Appends start button and instructions to container on page load
-  container.append("<div class='start-button'><button type='button' name='button'>Start game</button><h1>Controls</h1><hr><p>Left arrow or a to move left</p><hr><p>Right arrow or d to move right</p><hr><p>Space to shoot</p></div>")
+  container.append(startMenu);
+  //Targets start menu
   var startButton = $(".start-button");
 
 
@@ -23,11 +30,18 @@ $(function(){
   // ============= Game start from clicking ==============
   startButton.click(function(){
     startButton.remove();
-    if (!gamerunning){
+    gamerunning = true;
+    if (gamerunning==true){
       // Appends the game features to the container
-      container.append('<div class="score"><span class="score-name">Score:</span> <span class="score-value"></span></div><div class="lives"><span class="life-text">Lives:</span><span class="life-image"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"></span></div><div class="ship"><img class="ship-image"src="images/ship.png"></div><div class="aliens"></div>')
+      container.append(gameContent);
+      // Adds initial score
       $(".score-value").html(score);
+      // Target ship
       var ship = $(".ship");
+      // ship coordinates
+      var shipLeft = ship.offset().left;
+      var shipRight = shipLeft + ship.width();
+      var shipTop = ship.offset().top;
       // Initial ship postion
       var shipx = 450;
       ship.css({
@@ -108,12 +122,22 @@ $(function(){
           dirx = "+"
           createAliens();
         }
+        // Targets added game features
+        var game = $(".game");
+        // Win condition
+          $(".enemy").each(function(){
+            var enemyBottom = $(this).offset().top + $(this).height();
+            if (enemyBottom>=shipTop) {
+              gamerunning = false
+              clearInterval(gameInterval)
+              game.remove();
+              container.append(endMenu);
+              $(".end-score").html(score);
+            }
+          })
 
       },30);
       gamerunning = true;
-      } else {
-        gamerunning = false;
-        clearInterval(gameInterval)
       }
 
 
@@ -123,9 +147,6 @@ $(function(){
     $("body").keyup(function(){
       event.preventDefault();
       if (gamerunning) {
-        // coordinates of ship walls
-        var shipLeft = ship.offset().left;
-        var shipRight = shipLeft + ship.width();
         // ship controls
         if ((event.key == "a" || event.key == "ArrowLeft") && (shipLeft>containerLeft)) {
           shipx-=50;

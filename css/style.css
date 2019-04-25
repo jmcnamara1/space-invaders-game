@@ -14,21 +14,28 @@ body {
   position: relative;
   width: 1000px;
 }
-.start-button {
+.start-button, .end-menu {
   color: white;
   position: absolute;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
   text-align: center;
+  width: 400px;
 }
-.start-button button {
+.start-button {
+  width: 400px;
+}
+.end-menu {
+  width: 600px;
+  font-weight: bold;
+}
+.start-button button, .end-menu button {
   font-size: 50px;
   font-family: "classic-arcade";
 }
-.start-button button:hover {
+.start-button button:hover, .end-menu button:hover {
   color: #57b900;
 }
 .start-button h1 {
@@ -36,6 +43,17 @@ body {
 }
 .start-button p {
   padding: 10px;
+}
+.end-menu {
+  /* background-color: blue; */
+  color: #57b900;
+  font-size: 50px;
+  padding: 50px;
+}
+.score-value {
+  color: #57b900;
+  float: left;
+  padding-right: 100px;
 }
 .score {
   /* background-color: blue; */
@@ -48,11 +66,6 @@ body {
 }
 .score-name {
   float: left;
-}
-.score-value {
-  color: #57b900;
-  float: left;
-  padding-right: 100px;
 }
 .lives {
   /* background-color: yellow; */
