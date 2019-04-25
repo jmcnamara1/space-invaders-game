@@ -43,7 +43,7 @@ $(function(){
       container2.css({
         'display': 'block'
       })
-      
+
       gamerunning = true;
       if (gamerunning==true){
         // // Initial ship postion
@@ -155,7 +155,6 @@ $(function(){
           })
 
         },30);
-
       // If game running end
       }
 
@@ -233,7 +232,7 @@ $(function(){
                 }
                 // Bullet count limit end
               }
-              // game running end
+            // game running end
             }
             // Keyup end
           })
@@ -243,6 +242,8 @@ $(function(){
   // Firstmenu end
   var endButton = $(".end-button");
   endButton.click(function(){
+      // Removes keyup Event Listeners on the keys as they were being applied twice from start button
+      $("body").off("keyup");
       // Switches to main menu screen
       container3.css({
         'display': 'none'
