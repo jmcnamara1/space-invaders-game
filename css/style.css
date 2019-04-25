@@ -62,7 +62,7 @@ body {
   width: 240px;
 }
 .aliens {
-  background-color: #57b900;
+  /* background-color: #57b900; */
   height: 200px;
   left: 170px;
   position: absolute;
