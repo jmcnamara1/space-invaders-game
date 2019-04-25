@@ -9,7 +9,7 @@
   </head>
   <body>
       <!-- Game screen -->
-      <div class="container">
+      <div class="container container1">
         <div class='start-button'>
           <button type='button' name='button'>Start game</button>
           <h1>Controls</h1>
@@ -20,27 +20,31 @@
           <hr>
           <p>Space to shoot</p>
         </div>
-        <!-- <div class="score">
-          <span class="score-name">Score:</span> <span class="score-value"></span>
+      </div>
+      <div class="container container2">
+        <div class="game score">
+          <span class="game score-name">Score:</span> <span class="game score-value"></span>
         </div>
-        <div class="lives">
-          <span class="life-text">Lives:</span>
-          <span class="life-image">
-            <img class="ship-life"src="images/ship.png">
-            <img class="ship-life"src="images/ship.png">
-            <img class="ship-life"src="images/ship.png">
-          </span> -->
-        <!-- </div>
-        <div class="aliens">
-        </div> -->
-        <!-- <div class="end-menu">
-          Score: ${score}
+        <div class="game lives">
+          <span class="game life-text">Lives:</span>
+          <span class="game life-image">
+            <img class="game ship-life"src="images/ship.png">
+            <img class="game ship-life"src="images/ship.png">
+            <img class="game ship-life"src="images/ship.png">
+          </span>
+        </div>
+        <div class="game ship">
+          <img class="game ship-image"src="images/ship.png">
+        </div>
+        <div class="game aliens"></div>
+      </div>
+      <div class="container container3">
+        <div class="final-menu end-menu">
+          Score:
+          <span class="final-menu end-score"></span>
           <hr>
-        <button type="button" name="button">Back to main menu</button>
-          </div>` -->
-        <!-- <div class="ship">
-          <img class="ship-image"src="images/ship.png">
-        </div> -->
+          <button class="final-menu end-button" type="button" name="button">Back to main menu</button>
+        </div>
       </div>
   </body>
 </html>

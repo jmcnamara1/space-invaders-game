@@ -13,6 +13,16 @@ body {
   padding: 20px 0px;
   position: relative;
   width: 1000px;
+
+}
+.container1 {
+
+}
+.container2 {
+  display: none;
+}
+.container3 {
+  display: none;
 }
 .start-button, .end-menu {
   color: white;
