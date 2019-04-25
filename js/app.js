@@ -19,10 +19,13 @@ $(function(){
   // Initial direction of alien block movement
   var dirx = "+";
   // Initial alien speed
-  var alienSpeed = 8;
+  var alienSpeed;
   // Sets inital score into html
   $(".score-value").html(score);
 
+  var ship = $(".ship");
+  var shipx;
+  var shipSpeed;
 
 
     // ============= Game start from clicking ==============
@@ -30,27 +33,21 @@ $(function(){
       // Initial values set every time a
       dirx = "+";
       alienSpeed = 8;
+      shipSpeed = 50;
       score = 0;
       $(".score-value").html(score);
-
-
+      // Switches to game screen
       container1.css({
         'display': 'none'
       })
       container2.css({
         'display': 'block'
       })
+      
       gamerunning = true;
       if (gamerunning==true){
-
-        // Target ship
-        var ship = $(".ship");
-        // ship coordinates
-        var shipLeft = ship.offset().left;
-        var shipRight = shipLeft + ship.width();
-        var shipTop = ship.offset().top;
-        // Initial ship postion
-        var shipx = 450;
+        // // Initial ship postion
+        shipx = 450;
         ship.css({
           'left': shipx
         })
@@ -95,6 +92,10 @@ $(function(){
 
         // =============Alien block movement interval ==============
         gameInterval = setInterval(function(){
+
+          shipLeft = ship.offset().left;
+          shipRight = shipLeft + ship.width();
+          shipTop = ship.offset().top;
           // ========== coordinates of alienblock ==========
           var aliensLeft = aliens.offset().left;
           var aliensRight = aliensLeft + aliens.width();
@@ -164,19 +165,21 @@ $(function(){
           if (gamerunning) {
             // ship controls
             if ((event.key == "a" || event.key == "ArrowLeft") && (shipLeft>containerLeft)) {
-              shipx-=50;
+              shipx-=shipSpeed;
             } else if ((event.key == "d" || event.key == "ArrowRight") && (shipRight<containerRight)) {
-              shipx+=50;
+              shipx+=shipSpeed;
             }
+            // Adjust position of ship
             ship.css({
-              'left': shipx+'px'
+              'left': shipx
             })
-
 
             // Bullet stuff
             if (bulletCount<=0) {
               if (event.key == " ") {
                 bulletCount++
+                console.log(shipx);
+                // Creates bullet on click
                 $('.container2').append(`<div class="bullet bullet${bulletCount}"><img class="bullet-img"src="images/bullet.png" alt="Bullet"></div>`);
                 // Target bullet
                 var bullet = $(`.bullet${bulletCount}`);
@@ -238,18 +241,15 @@ $(function(){
         })
 
   // Firstmenu end
-
-
   var endButton = $(".end-button");
   endButton.click(function(){
-      console.log("end button click works");
+      // Switches to main menu screen
       container3.css({
         'display': 'none'
       })
       container1.css({
         'display': 'block'
       })
-
     })
 // End of $(function)
 })
