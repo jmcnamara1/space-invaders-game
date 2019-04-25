@@ -14,16 +14,17 @@ $(function(){
   // Initial direction of alien block movement
   var dirx = "+";
   var alienSpeed = 1;
+  // Appends start button and instructions to container on page load
   container.append("<div class='start-button'><button type='button' name='button'>Start game</button><h1>Controls</h1><hr><p>Left arrow or a to move left</p><hr><p>Right arrow or d to move right</p><hr><p>Space to shoot</p></div>")
   var startButton = $(".start-button");
 
-  // Initial alien position
 
 
   // ============= Game start from clicking ==============
   startButton.click(function(){
     startButton.remove();
     if (!gamerunning){
+      // Appends the game features to the container
       container.append('<div class="score"><span class="score-name">Score:</span> <span class="score-value"></span></div><div class="lives"><span class="life-text">Lives:</span><span class="life-image"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"><img class="ship-life"src="images/ship.png"></span></div><div class="ship"><img class="ship-image"src="images/ship.png"></div><div class="aliens"></div>')
       $(".score-value").html(score);
       var ship = $(".ship");
@@ -32,8 +33,8 @@ $(function(){
       ship.css({
         'left': shipx
       })
-      // ====== Bullet stuff =======
       // ===== Alien stuff =========
+      // Initial alien position
       var aliens = $(".aliens");
       var aliensx = 100;
       var aliensy = 100;
@@ -96,7 +97,6 @@ $(function(){
         }
         // Enemy respawn
         var enemyCount = $(".enemy").length
-        console.log(enemyCount);
         if (enemyCount == 0) {
           alienSpeed += 1;
           aliensx = 100;
@@ -121,6 +121,7 @@ $(function(){
 
     // ============== Control of ship and bullets =================
     $("body").keyup(function(){
+      event.preventDefault();
       if (gamerunning) {
         // coordinates of ship walls
         var shipLeft = ship.offset().left;
