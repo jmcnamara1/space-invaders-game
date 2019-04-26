@@ -3,8 +3,8 @@
   src: url("../fonts/ARCADE_N.TTF") format("truetype");
 }
 body {
-  font-family: "classic-arcade";
   box-sizing: border-box;
+  font-family: "classic-arcade";
 }
 .container {
   background-color: black;
@@ -13,7 +13,6 @@ body {
   padding: 20px 0px;
   position: relative;
   width: 1000px;
-
 }
 .container1 {
 
@@ -26,11 +25,11 @@ body {
 }
 .start-button, .end-menu {
   color: white;
-  position: absolute;
   left: 0;
-  right: 0;
   margin-left: auto;
   margin-right: auto;
+  position: absolute;
+  right: 0;
   text-align: center;
   width: 400px;
 }
@@ -38,8 +37,8 @@ body {
   width: 400px;
 }
 .end-menu {
-  width: 600px;
   font-weight: bold;
+  width: 600px;
 }
 .start-button button, .end-menu button {
   font-size: 50px;
@@ -55,7 +54,6 @@ body {
   padding: 10px;
 }
 .end-menu {
-  /* background-color: blue; */
   color: #57b900;
   font-size: 50px;
   padding: 50px;
@@ -66,26 +64,21 @@ body {
   padding-right: 100px;
 }
 .score {
-  /* background-color: blue; */
   color: white;
   height: 50px;
   padding: 8px 0 0 20px;
   position: absolute;
-  /* width: 200px; */
-
 }
 .score-name {
   float: left;
 }
 .lives {
-  /* background-color: yellow; */
   height: 50px;
   position: absolute;
   right: 0;
   width: 240px;
 }
 .aliens {
-  /* background-color: #57b900; */
   height: 200px;
   left: 170px;
   position: absolute;
@@ -97,12 +90,11 @@ body {
   position: absolute;
 }
 .alien2 {
-  width: 8%;
   padding: 1%;
   position: absolute;
+  width: 8%;
 }
 .ship {
-  /* background-color: purple; */
   bottom: 20px;
   height: 45px;
   left: 470px;
