@@ -19,6 +19,9 @@ $(function(){
   var dirx = "+";
   // Initial alien speed
   var alienSpeed;
+  // Target alien movement block
+  var aliens = $(".aliens");
+
   // Sets inital score into html
   $(".score-value").html(score);
 
@@ -51,8 +54,6 @@ $(function(){
         'left': shipx
       })
       // ===== Alien stuff =========
-      // Targets alien movement block
-      var aliens = $(".aliens");
       // Initial alien position
       var aliensx = 100;
       var aliensy = 100;
@@ -61,32 +62,7 @@ $(function(){
         'top': aliensy
       })
       // Target aliens
-      function createAliens() {
-        for (var i = 0; i < 10; i++) {
-          aliens.append(`<img class="row1 alien2 enemy" src="images/alien2.png">`)
-        }
-        $(".row1").each(function(index){
-          $(this).css({"left":index*65})
-        })
-        for (var i = 0; i < 10; i++) {
-          aliens.append(`<img class="row2 alien1 enemy" src="images/alien1.png">`)
-        }
-        $(".row2").each(function(index){
-          $(this).css({"left":index*65, "top":65})
-        })
-        for (var i = 0; i < 10; i++) {
-          aliens.append(`<img class="row3 alien2 enemy" src="images/alien2.png">`)
-        }
-        $(".row3").each(function(index){
-          $(this).css({"left":index*65, "top":130})
-        })
-        for (var i = 0; i < 10; i++) {
-          aliens.append(`<img class="row4 alien1 enemy" src="images/alien1.png">`)
-        }
-        $(".row4").each(function(index){
-          $(this).css({"left":index*65, "top":195})
-        })
-      }
+
       createAliens();
 
 
@@ -261,5 +237,31 @@ $(function(){
         'display': 'block'
       })
     })
+  function createAliens() {
+      for (var i = 0; i < 10; i++) {
+        aliens.append(`<img class="row1 alien2 enemy" src="images/alien2.png">`)
+      }
+      $(".row1").each(function(index){
+        $(this).css({"left":index*65})
+      })
+      for (var i = 0; i < 10; i++) {
+        aliens.append(`<img class="row2 alien1 enemy" src="images/alien1.png">`)
+      }
+      $(".row2").each(function(index){
+        $(this).css({"left":index*65, "top":65})
+      })
+      for (var i = 0; i < 10; i++) {
+        aliens.append(`<img class="row3 alien2 enemy" src="images/alien2.png">`)
+      }
+      $(".row3").each(function(index){
+        $(this).css({"left":index*65, "top":130})
+      })
+      for (var i = 0; i < 10; i++) {
+        aliens.append(`<img class="row4 alien1 enemy" src="images/alien1.png">`)
+      }
+      $(".row4").each(function(index){
+        $(this).css({"left":index*65, "top":195})
+      })
+    }
 // End of $(function)
 })
